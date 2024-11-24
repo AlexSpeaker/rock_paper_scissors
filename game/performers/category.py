@@ -1,9 +1,8 @@
 import random
 from typing import TYPE_CHECKING
 
-from classes.element.elements import paper, scissors, stone
 from classes.game.menu.category import BaseCategory
-from classes.game.menu.menu import BaseGameMenu
+from performers.utils.elements import paper, scissors, stone
 from performers.utils.utils import (
     editing_statistics,
     players_statistics,
@@ -25,6 +24,8 @@ class StartGame(BaseCategory):
         Инициализация экземпляра.
         """
         super().__init__()
+        from performers.utils.additional_menus import ChoiceMenu
+
         self.__menu = ChoiceMenu()
 
     def execute(self, game: "Game") -> None:
@@ -95,7 +96,7 @@ class ExitGame(BaseCategory):
 class ChoiceStone(BaseCategory):
     """Класс категории меню 'Камень'."""
 
-    name_category = "Камень"
+    name_category = "Камень."
 
     def execute(self, game: "Game") -> None:
         """
@@ -110,7 +111,7 @@ class ChoiceStone(BaseCategory):
 class ChoicePaper(BaseCategory):
     """Класс категории меню 'Бумага'."""
 
-    name_category = "Бумага"
+    name_category = "Бумага."
 
     def execute(self, game: "Game") -> None:
         """
@@ -125,7 +126,7 @@ class ChoicePaper(BaseCategory):
 class ChoiceScissors(BaseCategory):
     """Класс категории меню 'Ножницы'."""
 
-    name_category = "Ножницы"
+    name_category = "Ножницы."
 
     def execute(self, game: "Game") -> None:
         """
@@ -135,16 +136,3 @@ class ChoiceScissors(BaseCategory):
         """
         player = game.who_is_walking()
         player.element = scissors
-
-
-class ChoiceMenu(BaseGameMenu[BaseCategory]):
-    """
-    Класс меню выбора элемента.
-    """
-
-    game_menu = [
-        ChoiceStone(),
-        ChoiceScissors(),
-        ChoicePaper(),
-        ExitGame(),
-    ]
