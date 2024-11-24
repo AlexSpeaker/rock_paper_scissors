@@ -27,5 +27,5 @@ def test_statistics_menu(
 
     assert computer_player.name in printed_text
     assert human_player.name in printed_text
-    assert "Побед: 0" in printed_text
-    assert "Поражений: 0" in printed_text
+    assert printed_text.count("Побед: 0") == 2
+    assert printed_text.count("Поражений: 0") == 2

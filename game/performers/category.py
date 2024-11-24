@@ -56,7 +56,9 @@ class StartGame(BaseCategory):
                 player.element = random.choice([paper, stone, scissors])
                 break
             self.__menu.show()
-            player_choice = input(f"{player.name}, Сделайте Ваш выбор: ").strip()
+            player_choice = input(
+                f"Ход игрока: {player.name}. Сделайте Ваш выбор: "
+            ).strip()
             choice_is_valid, message = self.__menu.valid_choice(player_choice)
             if choice_is_valid:
                 self.__menu.execute(game, player_choice)

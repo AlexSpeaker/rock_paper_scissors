@@ -6,7 +6,6 @@ from classes.game.game import Game
 
 class TimeoutException(Exception):
     """Класс-исключение превышения времени."""
-    pass
 
 
 def safe_to_execute_game(game: Game) -> None:
@@ -29,7 +28,7 @@ def safe_to_execute_game(game: Game) -> None:
 def get_all_text(mock: MagicMock) -> str:
     """
     Преобразует все перехваты в строку.
-    :param mock: Объект имитации.
+    :param mock: Объект имитации (MagicMock).
     :return: Строку (str).
     """
     return " ".join(" ".join(map(str, call.args)) for call in mock.call_args_list)
