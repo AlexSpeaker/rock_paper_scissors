@@ -1,6 +1,6 @@
 from typing import Optional
 
-from classes.element.element import Element
+from core.classes.element import Element, NoElementExists
 
 
 class BasePlayer:
@@ -23,11 +23,10 @@ class BasePlayer:
         """
         return self.__player_name
 
-    @property
     def is_computer(self) -> bool:
         """
-        Возвращает True, если игрок — компьютер.
-        :return: True, если игрок компьютер, иначе False.
+        Является ли игрок компьютером.
+        :return: True, если является, иначе False.
         """
         return self.__computer
 
@@ -35,12 +34,8 @@ class BasePlayer:
 class BasePlayerStatistics:
     """Класс для хранения статистики игрока."""
 
-    def __init__(self) -> None:
-        """
-        Инициализация экземпляра.
-        """
-        self.__number_of_wins = 0
-        self.__number_of_losses = 0
+    __number_of_wins = 0
+    __number_of_losses = 0
 
     @property
     def wins(self) -> int:
@@ -76,11 +71,7 @@ class BasePlayerStatistics:
 class BasePlayerElement:
     """Класс для работы с элементом игрока."""
 
-    def __init__(self) -> None:
-        """
-        Инициализация экземпляра.
-        """
-        self.__element: Optional[Element] = None
+    __element: Optional[Element] = None
 
     @property
     def element(self) -> Optional[Element]:
@@ -113,12 +104,7 @@ class Player(BasePlayer, BasePlayerStatistics, BasePlayerElement):
     """Класс игрока, объединяющий базовый функционал, статистику и элементы."""
 
     def __init__(self, player_name: str, computer: bool = False) -> None:
-        """
-        Инициализация экземпляра.
-        """
         BasePlayer.__init__(self, player_name, computer)
-        BasePlayerStatistics.__init__(self)
-        BasePlayerElement.__init__(self)
 
     def is_resists(self, player: "Player") -> Optional[bool]:
         """
@@ -127,7 +113,8 @@ class Player(BasePlayer, BasePlayerStatistics, BasePlayerElement):
         :return: True, если текущий элемент устойчив, False, если текущий элемент не устойчив, None, если элементы одинаковы.
         """
         if self.element is None or player.element is None:
-            raise ValueError("У одного из игроков не задан элемент.")
+            bad_player = self if self.element is None else player
+            raise NoElementExists(f"У игрока {bad_player.name} отсутствует элемент.")
         return self.element.is_resists(player.element)
 
     def __repr__(self) -> str:

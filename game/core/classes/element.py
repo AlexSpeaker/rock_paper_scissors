@@ -1,6 +1,8 @@
 from typing import Optional
 
-from classes.exception.exception import NoElementResist
+
+class NoElementExists(Exception):
+    pass
 
 
 class Element:
@@ -10,8 +12,10 @@ class Element:
         """
         Инициализация экземпляра.
         """
+        if not name:
+            raise ValueError("Имя элемента не может быть пустым.")
         self.__name = name
-        self.__resists_the_element: Optional[Element] = None
+        self.__resists_element: Optional["Element"] = None
 
     @property
     def name(self) -> str:
@@ -22,23 +26,20 @@ class Element:
         return self.__name
 
     @property
-    def resists_the_element(self) -> Optional["Element"]:
+    def resists_element(self) -> "Element":
         """
         Возвращает элемент, к которому текущий элемент устойчив.
-        :return: Экземпляр класса Element, если он задан, иначе None.
+        :return: Экземпляр класса Element.
         """
-        return self.__resists_the_element
+        if self.__resists_element is None:
+            raise NoElementExists("У элемента нет элемента к которому он устойчив.")
+        return self.__resists_element
 
-    @resists_the_element.setter
-    def resists_the_element(self, element: "Element") -> None:
-        """
-        Задаёт элемент, к которому текущий элемент устойчив.
-        :param element: Экземпляр класса Element.
-        :return: None.
-        """
-        if not isinstance(element, Element):
-            raise ValueError(f"Ожидали Element, а получили {type(element)}")
-        self.__resists_the_element = element
+    @resists_element.setter
+    def resists_element(self, element: "Element") -> None:
+        if self.__resists_element is not None:
+            raise ValueError("Элементу уже задан элемент к которому он устойчив.")
+        self.__resists_element = element
 
     def is_resists(self, other_element: "Element") -> Optional[bool]:
         """
@@ -46,17 +47,19 @@ class Element:
         :param other_element: Экземпляр класса Element, с которым проводится сравнение.
         :return: True, если устойчивость есть, False, если нет устойчивости, а если элементы одинаковы вернёт None.
         """
-        if self.resists_the_element is None:
-            raise NoElementResist(
-                f"У элемента '{self.name}' нет элемента к которому он устойчив."
+        if not isinstance(other_element, Element):
+            raise ValueError(
+                f"Ожидали {type(Element)}, а получили {type(other_element)}."
             )
         if self is other_element:
             return None
-        return self.resists_the_element is other_element
+        elif self.resists_element is other_element:
+            return True
+        return False
 
     def __repr__(self) -> str:
         """
         Возвращает строковое представление элемента для отладки.
         :return: Строковое представление элемента (str)
         """
-        return f"Element(name={self.name})"
+        return f"Element(name={self.name}, resists_element={self.resists_element})"
