@@ -141,3 +141,4 @@ dmypy.json
 prettifier.py
 
 __test_db/
+__linters/
