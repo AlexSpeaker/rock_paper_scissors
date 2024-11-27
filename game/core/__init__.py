@@ -1,1 +1,3 @@
-from .executors import main_menu, game_menu
+from .executors import game_menu, main_menu
+
+__all__ = ["game_menu", "main_menu"]

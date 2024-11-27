@@ -5,10 +5,6 @@ if TYPE_CHECKING:
     from core.classes.game import Game
 
 
-class ExitMenu(Exception):
-    pass
-
-
 class NoGameClass(Exception):
     pass
 

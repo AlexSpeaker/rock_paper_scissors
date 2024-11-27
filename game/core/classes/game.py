@@ -1,11 +1,15 @@
 from typing import TYPE_CHECKING, Optional, Tuple
 
 if TYPE_CHECKING:
-    from core.classes.menu import ExitMenu, Menu
+    from core.classes.menu import Menu
     from core.classes.player import Player
 
 
 class NoPlayerGame(Exception):
+    pass
+
+
+class GameExit(Exception):
     pass
 
 
@@ -47,5 +51,5 @@ class Game:
         while True:
             try:
                 self.__start_menu.show()
-            except ExitMenu:
+            except GameExit:
                 exit(0)
