@@ -1,29 +1,10 @@
 from random import choice
 
-from core.classes.element import NoElementExists
-from core.classes.game import Game, GameExit, ResultGame
+from core.classes.game import Game
 from core.classes.menu import MenuExit
-from core.classes.player import Player
 from core.elements import paper, scissors, stone
+from core.executors.utils.utils import game_summary, get_result_game, statistics_info
 from core.menu import game_menu, start_menu
-
-
-def statistics_info(player: Player, index: int, width_menu: int) -> None:
-    print("*" * width_menu)
-    print(
-        "*{:^{width_menu}}*".format(
-            f"{index}. {player.name}", width_menu=width_menu - 2
-        )
-    )
-    print(
-        "*{:^{width_menu}}*".format(f"Побед: {player.wins}", width_menu=width_menu - 2)
-    )
-    print(
-        "*{:^{width_menu}}*".format(
-            f"Поражений: {player.losses}", width_menu=width_menu - 2
-        )
-    )
-    print("*" * width_menu)
 
 
 @game_menu.mark(name="Начать игру")
@@ -53,40 +34,10 @@ def statistic_menu(game: Game) -> None:
     players = game.get_players()
     max_width = max((player.name for player in players), key=len)
     width_menu = len(max_width) + 15
-    for i, player in enumerate(players):
+    for i, player in enumerate(players, 1):
         statistics_info(player, i, width_menu)
 
 
 @game_menu.mark(name="Выход")
 def exit_menu(game: Game) -> None:
     raise MenuExit
-
-
-def get_result_game(game: Game) -> ResultGame:
-    player_1, player_2 = game.get_players()
-    if player_1.is_resists(player_2):
-        return ResultGame(winner=player_1, loser=player_2)
-    elif player_2.is_resists(player_1):
-        return ResultGame(winner=player_2, loser=player_1)
-    return ResultGame()
-
-
-def game_summary(result_game: ResultGame) -> None:
-    if result_game.winner and result_game.loser:
-        if not result_game.winner.element:
-            raise NoElementExists("У победителя внезапно пропал элемент.")
-        if not result_game.loser.element:
-            raise NoElementExists("У проигравшего внезапно пропал элемент.")
-
-        print(
-            f"Игрок {result_game.winner.name} ПОБЕДИЛ! Его выбор: {result_game.winner.element.name}."
-        )
-        result_game.winner.add_wins()
-
-        print(
-            f"Игрок {result_game.loser.name} проиграл! Его выбор: {result_game.loser.element.name}."
-        )
-        result_game.loser.add_losses()
-
-    else:
-        print("НИЧЬЯ.")
