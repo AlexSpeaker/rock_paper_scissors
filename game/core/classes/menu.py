@@ -13,6 +13,10 @@ class NoFunction(Exception):
     pass
 
 
+class MenuExit(Exception):
+    pass
+
+
 @dataclass
 class Func:
     func: Optional[Callable[["Game"], None]] = None
