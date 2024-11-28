@@ -3,7 +3,6 @@ from typing import Optional
 
 class NoElementExists(Exception):
     """Исключение, если не нашёлся элемент."""
-    pass
 
 
 class Element:

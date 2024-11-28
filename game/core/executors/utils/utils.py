@@ -58,12 +58,12 @@ def game_summary(result_game: ResultGame) -> None:
             raise NoElementExists("У проигравшего внезапно пропал элемент.")
 
         print(
-            f"Игрок {result_game.winner.name} ПОБЕДИЛ! Его выбор: {result_game.winner.element.name}."
+            f"Игрок {result_game.winner.name} ПОБЕДИЛ!!! Его выбор: {result_game.winner.element.name}."
         )
         result_game.winner.add_wins()
 
         print(
-            f"Игрок {result_game.loser.name} проиграл! Его выбор: {result_game.loser.element.name}."
+            f"Игрок {result_game.loser.name} проиграл. Его выбор: {result_game.loser.element.name}."
         )
         result_game.loser.add_losses()
 

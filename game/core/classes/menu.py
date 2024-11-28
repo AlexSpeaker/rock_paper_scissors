@@ -7,22 +7,20 @@ if TYPE_CHECKING:
 
 class NoGameClass(Exception):
     """Исключение, если не нашёлся экземпляр игры."""
-    pass
 
 
 class NoFunction(Exception):
     """Исключение, если у категории отсутствует исполняющая функция."""
-    pass
 
 
 class MenuExit(Exception):
     """Исключение, для выхода из меню."""
-    pass
 
 
 @dataclass
 class Func:
     """Класс содержит информацию об исполняющей функции категории и видимость этой категории."""
+
     func: Optional[Callable[["Game"], None]] = None
     hidden: bool = True
 
@@ -38,7 +36,7 @@ class Menu:
         """
         self.__menu = list(args)
         self.__game: Optional["Game"] = None
-        self.__message = "Сделайте свой выбор: "
+        self.__message = "Сделайте Ваш выбор: "
         self.__menu_dict: Dict[str, Func] = {}
 
     def mark(
@@ -70,7 +68,7 @@ class Menu:
     def set_message(self, message: str) -> None:
         """
         Задаёт сообщение, которое будет показано пользователю при выборе категории.
-        По умолчанию - это 'Сделайте свой выбор: '.
+        По умолчанию - это 'Сделайте Ваш выбор: '.
 
         :param message: Сообщение (str).
         :return: None

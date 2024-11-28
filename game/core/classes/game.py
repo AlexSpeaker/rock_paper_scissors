@@ -8,17 +8,16 @@ if TYPE_CHECKING:
 
 class NoPlayerGame(Exception):
     """Исключение, если не нашёлся игрок."""
-    pass
 
 
 class GameExit(Exception):
     """Исключение выхода из игры."""
-    pass
 
 
 @dataclass(frozen=True)
 class ResultGame:
     """Класс результатов игры."""
+
     winner: Optional["Player"] = None
     loser: Optional["Player"] = None
 
