@@ -6,6 +6,13 @@ from core.menu import game_menu, main_menu
 
 @main_menu.mark(name="Один игрок")
 def one_player_menu(game: Game) -> None:
+    """
+    Функция-исполнитель. Выполнится при выборе игроком категорию 'Один игрок'.
+    Инициализирует игрока. Перейдёт на новое меню.
+
+    :param game: Экземпляр класса Game.
+    :return: None.
+    """
     name = input("Введите ваше имя: ")
     game.player_1 = Player(name)
     game.player_2 = Player("Компьютер", computer=True)
@@ -19,6 +26,13 @@ def one_player_menu(game: Game) -> None:
 
 @main_menu.mark(name="Два игрока")
 def two_players_menu(game: Game) -> None:
+    """
+    Функция-исполнитель. Выполнится при выборе игроком категорию 'Два игрока'.
+    Инициализирует игроков. Перейдёт на новое меню.
+
+    :param game: Экземпляр класса Game.
+    :return: None.
+    """
     name_1 = input("Игрок 1. Введите ваше имя: ")
     game.player_1 = Player(name_1)
     name_2 = input("Игрок 2. Введите ваше имя: ")
@@ -33,4 +47,11 @@ def two_players_menu(game: Game) -> None:
 
 @main_menu.mark(name="Выйти из игры")
 def exit_game_menu(game: Game) -> None:
+    """
+    Функция-исполнитель. Выполнится при выборе игроком категорию 'Выйти из игры'.
+    Выйдет из игры.
+
+    :param game: Экземпляр класса Game.
+    :return: None.
+    """
     raise GameExit

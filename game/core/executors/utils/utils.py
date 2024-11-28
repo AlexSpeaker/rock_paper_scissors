@@ -4,6 +4,14 @@ from core.classes.player import Player
 
 
 def statistics_info(player: Player, index: int, width_menu: int) -> None:
+    """
+    Функция покажет статистику игрока.
+
+    :param player: Игрок.
+    :param index: Порядковый номер игрока.
+    :param width_menu: Размер рамки.
+    :return:
+    """
     print("*" * width_menu)
     print(
         "*{:^{width_menu}}*".format(
@@ -22,6 +30,12 @@ def statistics_info(player: Player, index: int, width_menu: int) -> None:
 
 
 def get_result_game(game: Game) -> ResultGame:
+    """
+    Функция определит результат игры, и вернёт эту информацию, упакованную в ResultGame.
+
+    :param game: Экземпляр игры.
+    :return: Результат игры.
+    """
     player_1, player_2 = game.get_players()
     if player_1.is_resists(player_2):
         return ResultGame(winner=player_1, loser=player_2)
@@ -31,6 +45,12 @@ def get_result_game(game: Game) -> ResultGame:
 
 
 def game_summary(result_game: ResultGame) -> None:
+    """
+    Функция подведёт итог игры: покажет результаты и обновит статистику.
+
+    :param result_game: Результат игры.
+    :return: None.
+    """
     if result_game.winner and result_game.loser:
         if not result_game.winner.element:
             raise NoElementExists("У победителя внезапно пропал элемент.")

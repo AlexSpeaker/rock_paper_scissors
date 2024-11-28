@@ -9,6 +9,13 @@ from core.menu import game_menu, start_menu
 
 @game_menu.mark(name="Начать игру")
 def start_game_menu(game: Game) -> None:
+    """
+    Функция-исполнитель. Выполнится при выборе игроком категорию 'Начать игру'.
+    Попросит игроков выбрать элемент.
+
+    :param game: Экземпляр класса Game.
+    :return: None.
+    """
     game.player_1.reset_element()
     game.player_2.reset_element()
     start_menu.set_game(game)
@@ -31,6 +38,13 @@ def start_game_menu(game: Game) -> None:
 
 @game_menu.mark(name="Статистика")
 def statistic_menu(game: Game) -> None:
+    """
+    Функция-исполнитель. Выполнится при выборе игроком категорию 'Статистика'.
+    Покажет статистику по каждому игроку.
+
+    :param game: Экземпляр класса Game.
+    :return: None.
+    """
     players = game.get_players()
     max_width = max((player.name for player in players), key=len)
     width_menu = len(max_width) + 15
@@ -40,4 +54,11 @@ def statistic_menu(game: Game) -> None:
 
 @game_menu.mark(name="Выход")
 def exit_menu(game: Game) -> None:
+    """
+    Функция-исполнитель. Выполнится при выборе игроком категорию 'Выход'.
+    Выйдет из данного меню.
+
+    :param game: Экземпляр класса Game.
+    :return: None.
+    """
     raise MenuExit
