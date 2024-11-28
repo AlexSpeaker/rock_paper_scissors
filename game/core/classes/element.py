@@ -2,6 +2,7 @@ from typing import Optional
 
 
 class NoElementExists(Exception):
+    """Исключение, если не нашёлся элемент."""
     pass
 
 
@@ -21,6 +22,7 @@ class Element:
     def name(self) -> str:
         """
         Возвращает имя элемента.
+
         :return: Имя элемента (str).
         """
         return self.__name
@@ -29,6 +31,7 @@ class Element:
     def resists_element(self) -> "Element":
         """
         Возвращает элемент, к которому текущий элемент устойчив.
+
         :return: Экземпляр класса Element.
         """
         if self.__resists_element is None:
@@ -37,6 +40,12 @@ class Element:
 
     @resists_element.setter
     def resists_element(self, element: "Element") -> None:
+        """
+        Задаёт элемент, к которому текущий элемент устойчив.
+
+        :param element: Экземпляр класса Element.
+        :return: None.
+        """
         if self.__resists_element is not None:
             raise ValueError("Элементу уже задан элемент к которому он устойчив.")
         self.__resists_element = element
@@ -44,6 +53,7 @@ class Element:
     def is_resists(self, other_element: "Element") -> Optional[bool]:
         """
         Проверяет, устойчив ли текущий элемент к переданному элементу.
+
         :param other_element: Экземпляр класса Element, с которым проводится сравнение.
         :return: True, если устойчивость есть, False, если нет устойчивости, а если элементы одинаковы вернёт None.
         """
@@ -60,6 +70,7 @@ class Element:
     def __repr__(self) -> str:
         """
         Возвращает строковое представление элемента для отладки.
+
         :return: Строковое представление элемента (str)
         """
         return f"Element(name={self.name}, resists_element={self.resists_element})"

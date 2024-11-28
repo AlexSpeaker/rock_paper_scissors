@@ -19,6 +19,7 @@ class BasePlayer:
     def name(self) -> str:
         """
         Возвращает имя игрока.
+
         :return: Имя игрока (str).
         """
         return self.__player_name
@@ -26,6 +27,7 @@ class BasePlayer:
     def is_computer(self) -> bool:
         """
         Является ли игрок компьютером.
+
         :return: True, если является, иначе False.
         """
         return self.__computer
@@ -41,6 +43,7 @@ class BasePlayerStatistics:
     def wins(self) -> int:
         """
         Количество побед игрока.
+
         :return: Количество побед игрока (int).
         """
         return self.__number_of_wins
@@ -49,6 +52,7 @@ class BasePlayerStatistics:
     def losses(self) -> int:
         """
         Количество поражений игрока.
+
         :return: Количество поражений игрока (int).
         """
         return self.__number_of_losses
@@ -56,6 +60,7 @@ class BasePlayerStatistics:
     def add_wins(self) -> None:
         """
         Добавляет победу игроку.
+
         :return: None
         """
         self.__number_of_wins += 1
@@ -63,6 +68,7 @@ class BasePlayerStatistics:
     def add_losses(self) -> None:
         """
         Добавляет поражение игроку.
+
         :return: None
         """
         self.__number_of_losses += 1
@@ -77,6 +83,7 @@ class BasePlayerElement:
     def element(self) -> Optional[Element]:
         """
         Текущий элемент игрока.
+
         :return: Экземпляр класса Element, если такой задан, иначе None.
         """
         return self.__element
@@ -85,6 +92,7 @@ class BasePlayerElement:
     def element(self, element: Element) -> None:
         """
         Задаёт элемент игроку.
+
         :param element: Экземпляр класса Element.
         :return: None
         """
@@ -95,6 +103,7 @@ class BasePlayerElement:
     def reset_element(self) -> None:
         """
         Сбрасывает текущий элемент игрока.
+
         :return: None
         """
         self.__element = None
@@ -104,11 +113,13 @@ class Player(BasePlayer, BasePlayerStatistics, BasePlayerElement):
     """Класс игрока, объединяющий базовый функционал, статистику и элементы."""
 
     def __init__(self, player_name: str, computer: bool = False) -> None:
+        """Инициализация."""
         BasePlayer.__init__(self, player_name, computer)
 
     def is_resists(self, player: "Player") -> Optional[bool]:
         """
         Проверяет, устойчив ли текущий элемент игрока к элементу другого игрока.
+
         :param player: Экземпляр класса Player (другой игрок).
         :return: True, если текущий элемент устойчив, False, если текущий элемент не устойчив, None, если элементы одинаковы.
         """
@@ -120,6 +131,7 @@ class Player(BasePlayer, BasePlayerStatistics, BasePlayerElement):
     def __repr__(self) -> str:
         """
         Строковое представление игрока для отладки.
+
         :return: Строковое представление игрока (str).
         """
         element = self.element.name if self.element else "None"

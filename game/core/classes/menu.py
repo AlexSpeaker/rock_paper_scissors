@@ -6,19 +6,23 @@ if TYPE_CHECKING:
 
 
 class NoGameClass(Exception):
+    """Исключение, если не нашёлся экземпляр игры."""
     pass
 
 
 class NoFunction(Exception):
+    """Исключение, если у категории отсутствует исполняющая функция."""
     pass
 
 
 class MenuExit(Exception):
+    """Исключение, для выхода из меню."""
     pass
 
 
 @dataclass
 class Func:
+    """Класс содержит информацию об исполняющей функции категории и видимость этой категории."""
     func: Optional[Callable[["Game"], None]] = None
     hidden: bool = True
 
@@ -130,6 +134,7 @@ class Menu:
     def __validate_choice(self, choice: str) -> Tuple[bool, str]:
         """
         Проверит правильно ли ввёл категорию пользователь при выборе категории.
+
         :param choice: Выбор пользователя (str)
         :return: (True, 'OK') если всё хорошо, иначе (True, 'Информация пользователю, что он не так делает').
         """
